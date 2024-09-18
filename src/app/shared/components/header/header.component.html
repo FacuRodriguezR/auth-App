@@ -2,12 +2,17 @@
   <ion-toolbar color="dark">
 
     <ion-buttons slot="start">
+      <!-- BackButton -->
       <ion-back-button *ngIf="backButton" [defaultHref]="backButton"></ion-back-button>
+      <!-- Dismiss Modal -->
+      <ion-button (click)="dismissModal()" *ngIf="isModal">
+        <ion-icon name="close-circle-outline" color="danger"></ion-icon>
+      </ion-button>
     </ion-buttons>
 
     <ion-title>
-     <strong>{{title}}</strong>  
-     <div class="admin">A D M I N</div>
+      <strong>{{title}}</strong>
+      <div class="admin">A D M I N</div>
     </ion-title>
   </ion-toolbar>
 </ion-header>

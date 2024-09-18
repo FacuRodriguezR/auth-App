@@ -4,8 +4,10 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from '@firebase/auth'
 import { User } from '../models/user.models';
 import { AngularFirestore } from '@angular/fire/compat/firestore'
-import { doc, getFirestore, setDoc, getDoc } from '@angular/fire/firestore'
+import { doc, getFirestore, setDoc, getDoc, addDoc, collection, collectionData, query } from '@angular/fire/firestore'
 import { UtilsService } from '../services/utils.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage'
+import {getStorage, uploadString, ref, getDownloadURL} from 'firebase/storage'
 
 
 @Injectable({
@@ -16,12 +18,13 @@ export class FirebaseService {
   auth = inject(AngularFireAuth);
   firestore = inject(AngularFirestore);
   utilsSvc = inject(UtilsService);
+  storage = inject(AngularFireStorage)
 
 
   // ===============Autenticacion================
-getAuth() {
-  return getAuth();
-}
+  getAuth() {
+    return getAuth();
+  }
 
 
   // =====Acceder=====
@@ -38,7 +41,7 @@ getAuth() {
 
   // =====ActualizarUsuario=====
 
-  
+
   updateUser(displayName: string) {
     return updateProfile(getAuth().currentUser, { displayName })
   }
@@ -56,6 +59,12 @@ getAuth() {
   }
 
   // ================ Base de datos ================
+  // obtener documentos de una coleccion
+
+  getCollectionData(path: string, collectionQuery?: any){
+    const ref = collection(getFirestore(), path);
+    return collectionData(query(ref, collectionQuery),{idField: 'id'});
+  }
 
   // == Setear un documento ==
 
@@ -69,4 +78,17 @@ getAuth() {
   async getDocument(path: string) {
     return (await getDoc(doc(getFirestore(), path))).data();
   }
+// agregar un documento
+  addDocument(path: string, data: any) {
+    return addDoc(collection(getFirestore(), path), data)
+  }
+
+// almacenamiento
+
+// subir imagen
+
+  async uploadImage(path: string, data_url: string){
+  await uploadString(ref(getStorage(), path), data_url, 'data_url');
+  return await getDownloadURL(ref(getStorage(), path));
+}
 }
