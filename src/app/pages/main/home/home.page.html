@@ -18,17 +18,21 @@
           <strong>Precio:</strong> {{p.price | currency: 'USD'}}<br>
           <strong>Unidades vendidas: </strong>{{p.soldUnits}}
         </div>
+
+        <ion-chip color="danger" mode="ios" outline="true">
+          <ion-label>Ganancia: {{p.price * p.soldUnits | currency: 'USD'}}</ion-label>
+        </ion-chip>
       </ion-label>
       </ion-item>
 
 <!-- opciones -->
       <ion-item-options>
         <!-- editar -->
-        <ion-item-option>
+        <ion-item-option (click)="addUpdateProduct(p)">
           <ion-icon class="option-btn" name="create-outline"></ion-icon>
         </ion-item-option>
         <!-- eliminar -->
-        <ion-item-option color="danger">
+        <ion-item-option color="danger" (click)="confirmDeleteProduct(p)">
           <ion-icon class="option-btn" name="trash-outline"></ion-icon>
         </ion-item-option>
       </ion-item-options>
@@ -43,6 +47,12 @@
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addUpdateProduct()">
     <ion-fab-button  color="danger">
       <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed" (click)="signOut()">
+    <ion-fab-button  color="danger">
+      <ion-icon name="person-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 

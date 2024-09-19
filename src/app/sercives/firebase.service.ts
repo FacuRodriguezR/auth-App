@@ -4,10 +4,10 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from '@firebase/auth'
 import { User } from '../models/user.models';
 import { AngularFirestore } from '@angular/fire/compat/firestore'
-import { doc, getFirestore, setDoc, getDoc, addDoc, collection, collectionData, query } from '@angular/fire/firestore'
+import { doc, getFirestore, setDoc, getDoc, addDoc, updateDoc, collection, collectionData, query, deleteDoc } from '@angular/fire/firestore'
 import { UtilsService } from '../services/utils.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage'
-import {getStorage, uploadString, ref, getDownloadURL} from 'firebase/storage'
+import { getStorage, uploadString, ref, getDownloadURL, deleteObject } from 'firebase/storage'
 
 
 @Injectable({
@@ -61,9 +61,9 @@ export class FirebaseService {
   // ================ Base de datos ================
   // obtener documentos de una coleccion
 
-  getCollectionData(path: string, collectionQuery?: any){
+  getCollectionData(path: string, collectionQuery?: any) {
     const ref = collection(getFirestore(), path);
-    return collectionData(query(ref, collectionQuery),{idField: 'id'});
+    return collectionData(query(ref, collectionQuery), { idField: 'id' });
   }
 
   // == Setear un documento ==
@@ -72,23 +72,48 @@ export class FirebaseService {
     return setDoc(doc(getFirestore(), path), data)
   }
 
+  // actualizar un documento
+
+  deleteDocument(path: string) {
+    return deleteDoc(doc(getFirestore(), path))
+  }
+
+  // eliminar un producto
+
+  updateDocument(path: string, data: any) {
+    return updateDoc(doc(getFirestore(), path), data)
+  }
+
   // ==== Obtener un documento ====
 
 
   async getDocument(path: string) {
     return (await getDoc(doc(getFirestore(), path))).data();
   }
-// agregar un documento
+  // agregar un documento
   addDocument(path: string, data: any) {
     return addDoc(collection(getFirestore(), path), data)
   }
 
-// almacenamiento
+  // almacenamiento
 
-// subir imagen
+  // subir imagen
 
-  async uploadImage(path: string, data_url: string){
-  await uploadString(ref(getStorage(), path), data_url, 'data_url');
-  return await getDownloadURL(ref(getStorage(), path));
-}
+  async uploadImage(path: string, data_url: string) {
+    await uploadString(ref(getStorage(), path), data_url, 'data_url');
+    return await getDownloadURL(ref(getStorage(), path));
+  }
+
+  // obtener ruta de la imagen con su url
+
+  async getFilePath(url: string) {
+    return ref(getStorage(), url).fullPath;
+  }
+
+  deleteFile(path: string){
+    return deleteObject(ref(getStorage(), path))
+  }
+
+
+
 }

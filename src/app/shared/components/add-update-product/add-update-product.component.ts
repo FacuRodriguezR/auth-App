@@ -1,5 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Product } from 'src/app/models/products.models';
 import { User } from 'src/app/models/user.models';
 import { FirebaseService } from 'src/app/sercives/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -12,12 +13,14 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class AddUpdateProductComponent implements OnInit {
 
+  @Input() product: Product;
+
   form = new FormGroup({
     id: new FormControl(''),
     image: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    price: new FormControl('', [Validators.required, Validators.min(0)]),
-    soldUnits: new FormControl('', [Validators.required, Validators.min(0)]),
+    price: new FormControl(null, [Validators.required, Validators.min(0)]),
+    soldUnits: new FormControl(null, [Validators.required, Validators.min(0)]),
   })
 
   firebaseSvc = inject(FirebaseService);
@@ -27,7 +30,8 @@ export class AddUpdateProductComponent implements OnInit {
 
 
   ngOnInit() {
-    this.user = this.utlsSvc.getFromLocalStorage('user')
+    this.user = this.utlsSvc.getFromLocalStorage('user');
+    if( this.product ) this.form.setValue(this.product)
   }
 
   async takeImage() {
@@ -35,7 +39,17 @@ export class AddUpdateProductComponent implements OnInit {
     this.form.controls.image.setValue(dataUrl);
   }
 
-  async submit() {
+  submit(){
+    if(this.form.valid){
+      if(this.product) this.updateProduct();
+      else this.createProduct();
+    }
+  }
+
+
+  
+// crear producto
+  async createProduct() {
     if (this.form.valid) {
 
       let path = `users/${this.user.uid}/products`
@@ -57,6 +71,58 @@ export class AddUpdateProductComponent implements OnInit {
 
         this.utlsSvc.presentToast({
           message: 'Producto creado exitosamente',
+          duration: 1500,
+          color: 'success',
+          position: 'middle',
+          icon: 'checkmark-circle-outline'
+
+        })
+
+
+
+      }).catch(error => {
+        console.log(error);
+
+        this.utlsSvc.presentToast({
+          message: 'Usuario o Password inválida',
+          duration: 2500,
+          color: 'danger',
+          position: 'middle',
+          icon: 'alert-circle-outline'
+
+        })
+      }).finally(() => {
+        loading.dismiss();
+      })
+    }
+  }
+
+  // actualizar producto
+  async updateProduct() {
+    if (this.form.valid) {
+
+      let path = `users/${this.user.uid}/products/${this.product.id}`
+
+      const loading = await this.utlsSvc.loading();
+      await loading.present();
+
+      //si cambio la imagen, subir imagen y obtener url
+      if(this.form.value.image !== this.product.image){
+
+        let dataUrl = this.form.value.image;
+        let imagePath = await this.firebaseSvc.getFilePath(this.product.image);
+        let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
+        this.form.controls.image.setValue(imageUrl);
+      }
+
+      delete this.form.value.id;
+
+      this.firebaseSvc.updateDocument(path, this.form.value).then(async res => {
+
+        this.utlsSvc.dismissModal({success: true});
+
+        this.utlsSvc.presentToast({
+          message: 'Producto actualizado exitosamente',
           duration: 1500,
           color: 'success',
           position: 'middle',
