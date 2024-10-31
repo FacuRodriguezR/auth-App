@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.app.login',
-  appName: 'product-admin-ionic',
+  appName: 'Autoshop',
   webDir: 'www',
    plugins: {
     CapacitorHttp: {
@@ -23,6 +23,9 @@ const config: CapacitorConfig = {
       layoutName: "launch_screen",
       useDialog: false,
     },
+    PushNotifications: {
+      presentationOptions: ["badge", "sound", "alert"]
+    }
   }
 };
 

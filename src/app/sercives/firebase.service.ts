@@ -8,6 +8,7 @@ import { doc, getFirestore, setDoc, getDoc, addDoc, updateDoc, collection, colle
 import { UtilsService } from '../services/utils.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage'
 import { getStorage, uploadString, ref, getDownloadURL, deleteObject } from 'firebase/storage'
+import firebase from 'firebase/compat/app';
 
 
 @Injectable({
@@ -19,6 +20,7 @@ export class FirebaseService {
   firestore = inject(AngularFirestore);
   utilsSvc = inject(UtilsService);
   storage = inject(AngularFireStorage)
+  afAuth = inject(AngularFireAuth)
 
 
   // ===============Autenticacion================
@@ -31,6 +33,17 @@ export class FirebaseService {
 
   signIn(user: User) {
     return signInWithEmailAndPassword(getAuth(), user.email, user.password)
+  }
+  // SignIn with Google
+  async signInWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return await this.afAuth.signInWithPopup(provider);
+  }
+
+  // SignIn with Apple
+  async signInWithApple() {
+    const provider = new firebase.auth.OAuthProvider('apple.com');
+    return await this.afAuth.signInWithPopup(provider);
   }
 
   // =====Crear Usuario=====

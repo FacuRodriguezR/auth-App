@@ -1,0 +1,72 @@
+<app-header title="Autoshop"></app-header>
+
+<ion-content >
+  <div class="points ion-text-center ion-margin">
+
+    <ion-card class="avatarName">
+      <ion-avatar>
+        <img src="../../../assets/img/minarandom.png" />
+      </ion-avatar>
+      <div class="name-points">
+        <p>Hola Fernanda</p>
+        <p>Puntos: <strong>1.320</strong></p>
+        <p>Nivel: <strong>3</strong></p>
+      </div>
+    </ion-card>
+  
+  </div>
+
+  <div class="menu">
+
+    <ion-card class="card-options">
+      <ion-card-content>
+        <ion-grid class="ion-text-center">
+          <!-- Primera fila de iconos -->
+          <ion-row>
+            <ion-col >
+              <ion-icon name="pricetag-outline"></ion-icon>
+              <p>Mis <br> descuentos</p>
+            </ion-col>
+            <ion-col >
+              <ion-icon name="location-outline"></ion-icon>
+              <p>Buscar <br> locales</p>
+            </ion-col>
+            <ion-col>
+              <ion-icon name="gift-outline"></ion-icon>
+              <p>Beneficios AutoShop</p>
+            </ion-col>
+          
+          </ion-row>
+
+          <!-- Segunda fila de iconos -->
+          <ion-row>
+
+            <ion-col >
+              <ion-icon name="storefront-outline"></ion-icon>
+              <p>Tienda <br> Autoshop</p>
+            </ion-col>
+           
+            <ion-col>
+              <ion-icon name="car-sport-outline"></ion-icon>
+              <p>Ir a <br> Taller</p>
+            </ion-col>
+         
+            <ion-col>
+              <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+              <p>Ver más opciones</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div class="container-swiper ion-margin">
+    <p>Eventos</p>
+    <swiper-container [modules]="swiperModules" [slidesPerView]="1.6" [initialSlide]="1" [autoplay]="false"
+      [spaceBetween]="15">
+      <swiper-slide *ngFor="let coupon of coupons" >
+        <img [src]="coupon.img" alt="" class="ion-padding">
+      </swiper-slide>
+    </swiper-container>
+  </div>
+</ion-content>

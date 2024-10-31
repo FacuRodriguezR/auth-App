@@ -54,6 +54,31 @@ export class AuthPage implements OnInit {
   }
 
 
+
+  async signInWithGoogle() {
+    const loading = await this.utlsSvc.loading();
+    await loading.present();
+
+    this.firebaseSvc.signInWithGoogle().then(res => {
+      this.getUserInfo(res.user.uid);
+    }).catch(error => {
+      this.handleError();
+    }).finally(() => loading.dismiss());
+  }
+
+  async signInWithApple() {
+    const loading = await this.utlsSvc.loading();
+    await loading.present();
+
+    this.firebaseSvc.signInWithApple().then(res => {
+      this.getUserInfo(res.user.uid);
+    }).catch(error => {
+      this.handleError();
+    }).finally(() => loading.dismiss());
+  }
+
+
+
   async getUserInfo(uid: string){
     if (this.form.valid){
 
@@ -66,7 +91,7 @@ export class AuthPage implements OnInit {
       this.firebaseSvc.getDocument(path).then((user: User)=> {
 
         this.utlsSvc.saveInLocalStorage('user', user);
-        this.utlsSvc.routerLink('/main/home');
+        this.utlsSvc.routerLink('/main/coupons');
         this.form.reset();
 
         this.utlsSvc.presentToast({
@@ -95,4 +120,14 @@ export class AuthPage implements OnInit {
     }
   }
 
+
+  handleError() {
+    this.utlsSvc.presentToast({
+      message: 'Usuario o Password inválida',
+      duration: 2500,
+      color: 'danger',
+      position: 'middle',
+      icon: 'alert-circle-outline'
+    });
+  }
 }
