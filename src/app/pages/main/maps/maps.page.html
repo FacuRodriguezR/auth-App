@@ -1,0 +1,78 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title>Locales</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+<app-header title="Locales" backButton="coupons"></app-header>
+
+<ion-content [fullscreen]="true">
+
+
+
+  <div class="container-map">
+
+    <div class="map" #map></div>
+  </div>
+
+
+  <div class="container-sucursal">
+
+    <ion-card *ngIf="nearestBranchName" class="nearestLocation ion-padding">
+  
+      <ion-img src="../../../assets/img/AS 8.png" class="ion-margin"></ion-img>
+  
+      <ion-card-header class="header-ubi">
+  
+        <h2>Ubicación más cercana</h2>
+      </ion-card-header>
+  
+      <ion-card-content>
+        
+        <div class="location">
+
+          <p> <ion-icon slot="start" name="location"></ion-icon> {{ nearestBranchName }}</p>
+        </div>
+
+      <div class="container-servicios ion-padding" >
+        <h3>¿Qué servicios ofrecemos?</h3>
+        <ul>
+          <li *ngFor="let service of nearestLocation.services; let i = index" class="servicios">
+            <!-- Imagen usando imgServices[i] sin modificar el nombre -->
+            <img *ngIf="nearestLocation.imgServices && nearestLocation.imgServices[i]" 
+                 [src]="'assets/services/' + nearestLocation.imgServices[i].toLowerCase() + '.svg'" 
+                 [alt]="service" width="30px">
+            
+            <!-- Nombre del servicio -->
+            <span>{{ service }}</span>
+          </li>
+        </ul>
+      </div>
+  
+       <div class="buttons">
+
+         <ion-button class="button-maps" shape="round" (click)="centerOnNearestLocation()">
+           Ver ubicación <ion-icon slot="end" name="locate"></ion-icon>
+         </ion-button>
+     
+         <ion-button class="button-maps" shape="round" (click)="openInGoogleMaps()">
+           ¿Cómo llegar? <ion-icon slot="end" name="arrow-redo"></ion-icon>
+         </ion-button>
+   
+         <ion-button class="button-maps" shape="round">
+           <a [href]="'https://api.whatsapp.com/send?l=es&phone=+549'+nearestNumber+'&text=¡Hola! me comunico desde la app de prueba'" target="_blank">Whatsapp</a>
+           <ion-icon slot="end" name="logo-whatsapp"></ion-icon>
+         </ion-button>
+       </div> 
+
+      
+      
+      
+      </ion-card-content>
+      
+    </ion-card>
+  </div>
+
+</ion-content>
+
+

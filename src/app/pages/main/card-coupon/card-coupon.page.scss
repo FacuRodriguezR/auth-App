@@ -1,0 +1,77 @@
+.title{
+    text-align: center;
+    --background: none;
+    box-shadow: none;
+    h1{
+        
+    color: #e5630d !important;
+        padding: 50px 0;
+        font-family: 'open sans';
+        font-weight: 700;
+        font-size: 40px;
+        filter: drop-shadow(10px 9px 46px rgba(229,99,13, 0.6)) drop-shadow(0 11px 15px rgba(229,99,13, 0.2)) drop-shadow(0 24px 38px rgba(229,99,13, 0.2)) drop-shadow(0 -3px 5px rgba(229,99,13, 0.2));
+
+        span{
+            font-size: 50px;
+            -webkit-text-stroke: 1.5px rgb(255, 255, 255);
+            color: transparent !important;
+        }
+    }
+   
+}
+
+.container-info{
+    
+    p{
+        margin: 20px;
+        font-family: 'montserrat';
+        font-size: 20px;
+
+    }
+}
+
+.button-qr{
+    --color: #fff;
+    --background: #e5630d;
+    font-size: 16px;
+    font-family: 'montserrat';
+    text-transform: uppercase;
+}
+
+.validity{
+    background-color: #fff ;
+    color: #1d2d40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'montserrat';
+    margin: 10px;
+    border-radius: 10px;
+    span{
+        font-size: 18px;
+        font-weight: 700;
+    }
+}
+
+.discount {
+    
+    background-color: #1d2d40;
+    color: #e5630d;
+    border-radius: 10px;
+    font-size: 25px;
+    margin: 10px;
+    font-family: 'montserrat';
+   
+}
+ion-chip{
+    --background: #1d2d40 ;
+}
+
+ion-card{
+    --background: none;
+    box-shadow: none;
+
+    h2{
+        color: #000;
+    }
+}

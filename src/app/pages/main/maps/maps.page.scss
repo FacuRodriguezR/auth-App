@@ -1,0 +1,98 @@
+.map {
+    position: absolute;
+    height: 70%;
+    width: 100%;
+    background-color: transparent;
+    opacity: 0;
+    transition: opacity 150ms ease-in;
+    border-radius: 20px;
+    
+    // display: flex;
+
+   
+}
+
+ion-content{
+    height: 100vh;
+    margin-bottom: 20px;
+}
+ion-card{
+    border-radius: 20px;
+    --background: #181818;
+}
+
+.title{
+text-align: center;
+color: #e5630d;
+font-family: 'montserrat';
+margin: 0 20px;
+}
+
+.location{
+    p{
+        font-size: 1rem;
+    }
+}
+
+.container-map{
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 0 0;
+}
+
+.map.visible{
+    opacity: 1;
+}
+
+
+.container-sucursal{
+
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+    
+    .nearestLocation{
+        width: 90%;
+        position: absolute;
+        top: 80%;
+        margin: 0 30px;
+        font-size: 20px;
+        color: #e5630d;
+        font-family: 'montserrat';
+        ion-img{
+            height: 60px;
+        }
+    
+    }
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    .button-maps{
+        --background: #e5630d;
+        color: #fff;
+        font-family: 'montserrat';
+        margin: 20px 0 0 0;
+        
+        a{
+            text-decoration: none;
+            color: #fff;
+        }
+    }
+}
+
+
+.container-servicios {
+    h3{
+        font-size: 20px;
+        color: #fff;
+
+    }
+    .servicios{
+        margin-left: -40px;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+}

@@ -4,9 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HomePageRoutingModule } from './home-routing.module';
+import { CardCouponPageRoutingModule } from './card-coupon-routing.module';
 
-import { HomePage } from './home.page';
+import { CardCouponPage } from './card-coupon.page';
+import { QRCodeModule } from 'angularx-qrcode';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
@@ -14,10 +15,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule,
+    CardCouponPageRoutingModule,
+    QRCodeModule,
     SharedModule
   ],
-  declarations: [HomePage],
+  declarations: [CardCouponPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class HomePageModule {}
+export class CardCouponPageModule {}

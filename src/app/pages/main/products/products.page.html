@@ -1,0 +1,89 @@
+<!-- <app-header title="Productos" backButton="coupons"></app-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-label>Proveedor</ion-label>
+    <ion-select [(ngModel)]="selectedProveedor">
+      <ion-select-option value="">Todos</ion-select-option>
+      <ion-select-option value="KUMHO">KUMHO</ion-select-option>
+      <ion-select-option value="TRIANGLE">TRIANGLE</ion-select-option>
+      <ion-select-option value="FIREMAX">FIREMAX</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+  <ion-label>Diámetro</ion-label>
+  <ion-select [(ngModel)]="selectedDiametro">
+    <ion-select-option value="">Todos</ion-select-option>
+    <ion-select-option value="145">145</ion-select-option>
+    <ion-select-option value="155">155</ion-select-option>
+    <ion-select-option value="165">165</ion-select-option>
+    <ion-select-option value="175">175</ion-select-option>
+    <ion-select-option value="185">185</ion-select-option>
+    <ion-select-option value="195">195</ion-select-option>
+    <ion-select-option value="205">205</ion-select-option>
+    <ion-select-option value="215">215</ion-select-option>
+    <ion-select-option value="225">225</ion-select-option>
+    <ion-select-option value="235">235</ion-select-option>
+    <ion-select-option value="245">245</ion-select-option>
+    <ion-select-option value="255">255</ion-select-option>
+    <ion-select-option value="265">265</ion-select-option>
+ 
+  </ion-select>
+</ion-item>
+
+<ion-item>
+  <ion-label>Sección</ion-label>
+  <ion-select [(ngModel)]="selectedSeccion">
+    <ion-select-option value="">Todos</ion-select-option>
+    <ion-select-option value="45">45</ion-select-option>
+    <ion-select-option value="50">50</ion-select-option>
+    <ion-select-option value="55">55</ion-select-option>
+    <ion-select-option value="60">60</ion-select-option>
+    <ion-select-option value="65">65</ion-select-option>
+    <ion-select-option value="70">70</ion-select-option>
+    <ion-select-option value="80">80</ion-select-option>
+    <ion-select-option value="85">85</ion-select-option>
+
+  </ion-select>
+</ion-item>
+
+<ion-item>
+  <ion-label>Llanta</ion-label>
+  <ion-select [(ngModel)]="selectedLlanta">
+    <ion-select-option value="">Todos</ion-select-option>
+    <ion-select-option value="13">13"</ion-select-option>
+    <ion-select-option value="14">14"</ion-select-option>
+    <ion-select-option value="15">15"</ion-select-option>
+    <ion-select-option value="16">16"</ion-select-option>
+    <ion-select-option value="17">17"</ion-select-option>
+    <ion-select-option value="18">18"</ion-select-option>
+    <ion-select-option value="19">19"</ion-select-option>
+
+
+  </ion-select>
+</ion-item>
+
+<ion-button (click)="getAsProd()">
+  <ion-icon name="search-outline"></ion-icon>
+</ion-button>
+
+
+  <ion-card *ngFor="let product of products; let last=last" [ngClass]="{'margin-last': last}" class="cards ion-text-center">
+    <img *ngIf="product.grupo === 14" src="https://www.redautoshop.com.ar/assets/images/products/neumaticos2/1-{{ product.diseno }}-m.png" alt="neumático">
+    <img *ngIf="product.grupo !== 14" src="https://www.redautoshop.com.ar/assets/images/products/articulos/1-{{ product.idarticulo }}-s.jpg" alt="producto">
+
+
+    <ion-card-header>
+      <ion-card-title>{{ product.nombre }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-label class="ion-text-center">
+          ${{ product.precioahora }}
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content> -->

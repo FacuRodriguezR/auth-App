@@ -11,111 +11,112 @@ import { AddUpdateProductComponent } from 'src/app/shared/components/add-update-
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  firebaseSvc = inject(FirebaseService);
+  utilsSvb = inject(UtilsService);
+  users: User[] = [];
+  loading: boolean = false;
+  products: Product[] = [];
 
- firebaseSvc= inject(FirebaseService);
- utilsSvb = inject(UtilsService);
-
- products: Product[] = [];
-
-  ngOnInit() {
-  
-  }
+  ngOnInit() {}
 
   // obtener datos del localStorage
 
-user(): User{
-  return this.utilsSvb.getFromLocalStorage('user');
-}
+  user(): User {
+    return this.utilsSvb.getFromLocalStorage('user');
+  }
 
-ionViewWillEnter() {
-  this.getProducts();
-}
+  ionViewWillEnter() {
+    this.getUsers();
+  }
 
-getProducts(){
-   let path = `users/${this.user().uid}/products`;
+  getProducts() {
+    let path = `users/${this.user().uid}/products`;
 
-  let sub = this.firebaseSvc.getCollectionData(path).subscribe({
-    next: (res: any) => {
-      console.log(res);
-      this.products = res;
-      sub.unsubscribe();
-    }
-   })
-}
+    let sub = this.firebaseSvc.getCollectionData(path).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.products = res;
+        sub.unsubscribe();
+      },
+    });
+  }
+  getUsers() {
+    let path = `users`;
+    this.loading = true;
+    let query = [];
+
+    let sub = this.firebaseSvc.getCollectionData(path, query).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.users = res;
+        this.loading = false;
+        sub.unsubscribe();
+      },
+    });
+  }
 
   // cerrar sesion
 
-  signOut(){
-    this.firebaseSvc.signOut();
-    
-  }
+
 
   // actualizar producto
 
- async addUpdateProduct(product?: Product) {
-   let success = await this.utilsSvb.presentModal({
+  async addUpdateProduct(product?: Product) {
+    let success = await this.utilsSvb.presentModal({
       component: AddUpdateProductComponent,
       cssClass: 'add-update-modal',
-      componentProps: {product}
-    })
-    if(success) this.getProducts();
+      componentProps: { product },
+    });
+    if (success) this.getProducts();
   }
 
   // confirmar la eliminacion del producto
 
   async confirmDeleteProduct(product: Product) {
-      this.utilsSvb.presentAlert({
+    this.utilsSvb.presentAlert({
       header: 'Eliminar Producto',
       message: '¿Quieres eliminar este producto?',
       buttons: [
         {
           text: 'Cancelar',
           cssClass: 'danger',
-        
-        }, {
+        },
+        {
           text: 'Sí, eliminar',
           handler: () => {
-            this.deleteProduct(product)
-          }
-        }
-      ]
+            this.deleteProduct(product);
+          },
+        },
+      ],
     });
-  
-
   }
-
 
   // eliminar producto
 
   async deleteProduct(product: Product) {
-    
+    let path = `users/${this.user().uid}/products/${product.id}`;
 
-      let path = `users/${this.user().uid}/products/${product.id}`
+    const loading = await this.utilsSvb.loading();
+    await loading.present();
 
-      const loading = await this.utilsSvb.loading();
-      await loading.present();
+    //si cambio la imagen, subir imagen y obtener url
+    let imagePath = await this.firebaseSvc.getFilePath(product.image);
+    await this.firebaseSvc.deleteDocument(imagePath);
 
-      //si cambio la imagen, subir imagen y obtener url
-      let imagePath = await this.firebaseSvc.getFilePath(product.image);
-      await this.firebaseSvc.deleteDocument(imagePath);
-
-
-      this.firebaseSvc.deleteDocument(path).then(async res => {
-
-        this.products = this.products.filter(p => p.id !== product.id);
+    this.firebaseSvc
+      .deleteDocument(path)
+      .then(async (res) => {
+        this.products = this.products.filter((p) => p.id !== product.id);
 
         this.utilsSvb.presentToast({
           message: 'Producto eliminado exitosamente',
           duration: 1500,
           color: 'success',
           position: 'middle',
-          icon: 'checkmark-circle-outline'
-
-        })
-
-
-
-      }).catch(error => {
+          icon: 'checkmark-circle-outline',
+        });
+      })
+      .catch((error) => {
         console.log(error);
 
         this.utilsSvb.presentToast({
@@ -123,15 +124,11 @@ getProducts(){
           duration: 2500,
           color: 'danger',
           position: 'middle',
-          icon: 'alert-circle-outline'
-
-        })
-      }).finally(() => {
-        loading.dismiss();
+          icon: 'alert-circle-outline',
+        });
       })
-    
+      .finally(() => {
+        loading.dismiss();
+      });
   }
-
-
-
 }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { CustomInputComponent } from './components/custom-input/custom-input.component';
@@ -11,13 +11,14 @@ import { AddUpdateProductComponent } from './components/add-update-product/add-u
 
 @NgModule({
   declarations: [HeaderComponent, CustomInputComponent, LogoComponent,AddUpdateProductComponent],
-  exports: [HeaderComponent, CustomInputComponent, LogoComponent, ReactiveFormsModule,AddUpdateProductComponent],
+  exports: [HeaderComponent, CustomInputComponent, LogoComponent, ReactiveFormsModule,AddUpdateProductComponent, IonicModule],
   imports: [
     CommonModule,
     IonicModule, 
     ReactiveFormsModule,
     FormsModule,
     
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule { }

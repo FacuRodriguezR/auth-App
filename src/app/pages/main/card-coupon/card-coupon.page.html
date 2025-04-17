@@ -1,0 +1,39 @@
+<app-header [title]="'Cupón ' + nameCoupon" backButton="coupons"></app-header>
+
+<ion-content [fullscreen]="true">
+
+
+
+  <ion-card class="title ion-padding">
+    <ion-img [src]="couponImage"></ion-img>
+  </ion-card>
+  <div class="container-info ion-text-center" *ngIf="couponImage">
+
+    <div class="discount ion-padding">
+      {{discount}}% off
+    </div>
+
+    <div class="validity  ion-padding">
+      <p>Vigencia:</p> <span>{{validity}}</span>
+    </div>
+
+  </div>
+  <div *ngIf="qr == 0">
+    <ion-button (click)="generarPdf()" expand="block" class="ion-margin button-qr">
+      Ver código
+    </ion-button>
+  </div>
+  <ion-card *ngIf="qr == 1">
+    <ion-card-content class="ion-text-center">
+
+      <qrcode [qrdata]="QRCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+
+      <h2 class="ion-padding">Cupón</h2>
+      <ion-chip class="" (click)="copyToClipboard(couponName)">
+        <ion-label>{{couponName}}</ion-label>
+      </ion-chip>
+    </ion-card-content>
+
+
+  </ion-card>
+</ion-content>

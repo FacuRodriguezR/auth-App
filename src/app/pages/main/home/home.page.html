@@ -1,59 +1,53 @@
-<app-header title="Inicio"></app-header>
+<app-header [signOutBtn]="true" title="Inicio"></app-header>
 
 
 
 <ion-content>
 
-  <ion-list>
-    <ion-item-sliding class="product-item" *ngFor="let p of products">
-      <ion-item>
-        <ion-avatar slot="start">
-          <img [src]="p.image" />
-        </ion-avatar>
-        <ion-label>
-          <div class="name">
-          {{p.name}}
-        </div>
-        <div class="data">
-          <strong>Precio:</strong> {{p.price | currency: 'USD'}}<br>
-          <strong>Unidades vendidas: </strong>{{p.soldUnits}}
-        </div>
+  <ion-list *ngIf="!loading">
 
-        <ion-chip color="danger" mode="ios" outline="true">
-          <ion-label>Ganancia: {{p.price * p.soldUnits | currency: 'USD'}}</ion-label>
-        </ion-chip>
+      <ion-item *ngFor="let u of users">
+       <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+        <ion-label>
+          <p>Usuario</p>
+          {{u.name}}
+          <p>E-mail</p>
+          {{u.email}}
       </ion-label>
       </ion-item>
 
-<!-- opciones -->
-      <ion-item-options>
-        <!-- editar -->
-        <ion-item-option (click)="addUpdateProduct(p)">
-          <ion-icon class="option-btn" name="create-outline"></ion-icon>
-        </ion-item-option>
-        <!-- eliminar -->
-        <ion-item-option color="danger" (click)="confirmDeleteProduct(p)">
-          <ion-icon class="option-btn" name="trash-outline"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
+
+
       
       
   
       
-    </ion-item-sliding>
+   
+  </ion-list>
+  <ion-list *ngIf="loading">
+    <ion-item *ngFor="let p of [1,1,1,1,1,1,1,1,1,1,1,1]">
+     
+      <ion-label>
+        <div>
+          <ion-skeleton-text animated style="width: 40%;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+    
+        </div>
+      </ion-label>    
+    </ion-item>
   </ion-list>
 
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addUpdateProduct()">
+  <!-- goblal -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button  color="danger">
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="globe-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed" (click)="signOut()">
-    <ion-fab-button  color="danger">
-      <ion-icon name="person-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+
+
+
 
 </ion-content>

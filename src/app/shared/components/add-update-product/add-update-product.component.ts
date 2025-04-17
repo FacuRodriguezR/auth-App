@@ -75,7 +75,6 @@ export class AddUpdateProductComponent implements OnInit {
           color: 'success',
           position: 'middle',
           icon: 'checkmark-circle-outline'
-
         })
 
 

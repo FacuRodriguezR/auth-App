@@ -1,0 +1,55 @@
+ion-toolbar{
+    --background: #3c3c3b;
+    text-align: center;
+}
+.cards{
+    font-family: 'montserrat' ;
+
+    ion-img{
+        padding: 50px 20px;
+    }
+   
+}
+
+.title{
+    --background: #000000;
+    h1{
+
+    color: #e5630d !important;
+        padding: 60px 0;
+        font-family: 'open sans';
+        font-weight: 800;
+        font-size: 40px;
+        filter: drop-shadow(10px 9px 46px rgba(229,99,13, 0.6)) drop-shadow(0 11px 15px rgba(229,99,13, 0.2)) drop-shadow(0 24px 38px rgba(229,99,13, 0.2)) drop-shadow(0 -3px 5px rgba(229,99,13, 0.2));
+
+        span{
+            font-size: 50px;
+            -webkit-text-stroke: 1.5px rgb(255, 255, 255);
+            color: transparent;
+        }
+    }
+}
+.margin-last{
+    margin-bottom: 80px;
+}
+ion-label{
+    font-family: 'montserrat';
+}
+
+ion-button{
+    --color: white;
+    font-family: 'montserrat';
+    font-size: 16px;
+    --background: #e5630d;
+}
+
+.logo{
+    width: 40px;
+  
+}
+
+ion-item{
+    --background: #3c3c3b;
+    --border-radius: 10px;
+}
+

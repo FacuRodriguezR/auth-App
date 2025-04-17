@@ -1,0 +1,140 @@
+<!--  -->
+
+<app-header title="Inicio"></app-header>
+
+
+<ion-content [fullscreen]="true">
+
+  <div class="points ion-text-center ion-margin">
+
+    <ion-card class="avatarName">
+      <ion-avatar>
+        <img src="../../../assets/img/minarandom.png" />
+      </ion-avatar>
+      <div class="name-points">
+        <p>Hola Fernanda</p>
+        <p>Puntos: <strong>1.320</strong></p>
+        <p>Nivel: <strong>3</strong></p>
+      </div>
+    </ion-card>
+  
+  </div>
+
+  <div class="container-swiper ion-margin">
+    <p>Cupones Destacados</p>
+    <swiper-container [modules]="swiperModules" [slidesPerView]="1.1" [initialSlide]="1" [autoplay]="false"
+      [spaceBetween]="15">
+      <swiper-slide *ngFor="let coupon of coupons" (click)="onSlideClick(coupon)">
+        <img [src]="coupon.img" alt="" class="ion-padding">
+      </swiper-slide>
+    </swiper-container>
+  </div>
+ <br>
+  <div class="menu">
+
+    <ion-card class="card-options">
+      <ion-card-content>
+        <ion-grid class="ion-text-center">
+          <!-- Primera fila de iconos -->
+          <ion-row>
+            <ion-col (click)="goToCard()">
+              <ion-icon name="pricetag-outline"></ion-icon>
+              <p>Mis <br> descuentos</p>
+            </ion-col>
+            <ion-col (click)="goToMaps()">
+              <ion-icon name="location-outline"></ion-icon>
+              <p>Buscar <br> locales</p>
+            </ion-col>
+            <ion-col>
+              <ion-icon name="gift-outline"></ion-icon>
+              <p>Beneficios AutoShop</p>
+            </ion-col>
+          
+          </ion-row>
+
+          <!-- Segunda fila de iconos -->
+          <ion-row>
+
+            <ion-col (click)="goToProducts()">
+              <ion-icon name="storefront-outline"></ion-icon>
+              <p>Tienda <br> Autoshop</p>
+            </ion-col>
+           
+            <ion-col>
+              <ion-icon name="car-sport-outline"></ion-icon>
+              <p>Ir a <br> Taller</p>
+            </ion-col>
+         
+            <ion-col>
+              <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+              <p>Ver más opciones</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class="container-swiper ion-margin">
+    <p>Eventos</p>
+    <swiper-container [modules]="swiperModules" [slidesPerView]="1.6" [initialSlide]="1" [autoplay]="false"
+      [spaceBetween]="15">
+      <swiper-slide *ngFor="let coupon of coupons" (click)="onSlideClick(coupon)">
+        <img [src]="coupon.img" alt="" class="ion-padding">
+      </swiper-slide>
+    </swiper-container>
+  </div>
+
+  <br>
+  <br>
+
+
+  <!-- <ion-card *ngFor="let coupon of coupons; let last=last" [ngClass]="{'margin-last': last}" class="cards">
+    <div class="image">
+
+      <ion-img [src]="coupon.img" ></ion-img>
+    </div>
+
+    <ion-card-header>
+      <ion-card-title>{{coupon.name}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-label>
+          {{coupon.discount}} %
+        </ion-label>
+        <ion-button slot="end" (click)="changeActive(coupon)">
+          {{coupon.active ? 'Desactivar' : 'Activar'}}
+        </ion-button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card> -->
+
+  <!-- <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+    <ion-fab-button [disabled]="!couponsActive" (click)="goToCard()">
+      <ion-icon name="card-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+  
+</ion-content>
+
+
+
+<!-- <ion-tab-bar slot="bottom,top">
+  <ion-tab-button tab="tab1" (click)="goToMaps()">
+    <ion-icon name="location"></ion-icon>
+  </ion-tab-button>
+  <ion-tab-button tab="tab2" [disabled]="!couponsActive" (click)="goToCard()">
+    <ion-icon name="card"></ion-icon>
+  </ion-tab-button>
+  <ion-tab-button tab="tab3" (click)="goToProducts()">
+    <ion-icon name="cart"></ion-icon>
+  </ion-tab-button>
+  <ion-tab-button tab="tab4">
+    <ion-icon name="camera" (click)="startCamera()"></ion-icon>
+  </ion-tab-button>
+</ion-tab-bar> -->
+<ion-button (click)="startCamera()" class=" qr-button" shape="round" slot="bottom,top">
+  <ion-icon name="qr-code-outline"></ion-icon>  <p>Escanear QR</p>
+</ion-button>
